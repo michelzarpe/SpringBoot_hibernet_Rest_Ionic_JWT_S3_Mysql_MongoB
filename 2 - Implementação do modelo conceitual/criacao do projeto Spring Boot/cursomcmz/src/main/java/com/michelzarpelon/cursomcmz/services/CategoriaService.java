@@ -16,4 +16,6 @@ public class CategoriaService {
 		Categoria categoria = repositorioCategoria.findOne(id);
 		return categoria;
 	}
+	
+	
 }
