@@ -1,10 +1,7 @@
 package com.michelzarpelon.cursomcmz.services;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.michelzarpelon.cursomcmz.domain.Categoria;
 import com.michelzarpelon.cursomcmz.repositories.CategoriaRepository;
 import com.michelzarpelon.cursomcmz.services.execeptions.ObjectNotFoundException;
