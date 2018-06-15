@@ -8,11 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.michelzarpelon.cursomcmz.services.execeptions.ObjectNotFoundException;
-
-
-
-
-/*classe manipuladora de Excessao */
+/*classe manipuladora de Excessao, trabalhando como um filtro*/
 @ControllerAdvice
 public class ResourceExceptionHandler {
 
