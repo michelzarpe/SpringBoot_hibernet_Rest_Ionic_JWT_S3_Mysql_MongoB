@@ -1,6 +1,9 @@
 package com.michelzarpelon.cursomcmz;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+
+import javax.print.attribute.standard.PDLOverrideSupported;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -12,13 +15,20 @@ import com.michelzarpelon.cursomcmz.domain.Cidade;
 import com.michelzarpelon.cursomcmz.domain.Cliente;
 import com.michelzarpelon.cursomcmz.domain.Endereco;
 import com.michelzarpelon.cursomcmz.domain.Estado;
+import com.michelzarpelon.cursomcmz.domain.Pagamento;
+import com.michelzarpelon.cursomcmz.domain.PagamentoComCartao;
+import com.michelzarpelon.cursomcmz.domain.PatamentoComBoleto;
+import com.michelzarpelon.cursomcmz.domain.Pedido;
 import com.michelzarpelon.cursomcmz.domain.Produto;
+import com.michelzarpelon.cursomcmz.domain.enums.EstadoPagamento;
 import com.michelzarpelon.cursomcmz.domain.enums.TipoCliente;
 import com.michelzarpelon.cursomcmz.repositories.CategoriaRepository;
 import com.michelzarpelon.cursomcmz.repositories.CidadeRepository;
 import com.michelzarpelon.cursomcmz.repositories.ClienteRepository;
 import com.michelzarpelon.cursomcmz.repositories.EnderecoRepository;
 import com.michelzarpelon.cursomcmz.repositories.EstadoRepository;
+import com.michelzarpelon.cursomcmz.repositories.PagamentoRepository;
+import com.michelzarpelon.cursomcmz.repositories.PedidoRepository;
 import com.michelzarpelon.cursomcmz.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -37,6 +47,10 @@ public class CursomcmzApplication implements CommandLineRunner{
 	private EnderecoRepository enderecoRepository;
 	@Autowired
 	private ClienteRepository clienteRepository;
+	@Autowired
+	private PedidoRepository pedidoRepository;
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
 	
 	
 	public static void main(String[] args) {
@@ -84,6 +98,21 @@ public class CursomcmzApplication implements CommandLineRunner{
 		cli1.getEnderecos().addAll(Arrays.asList(e1,e2));		
 		clienteRepository.save(cli1);
 		enderecoRepository.save(Arrays.asList(e1,e2));
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), cli1, e1);
+		Pedido ped2 = new Pedido(null, sdf.parse("10/10/2017 19:35"), cli1, e2);
+		
+		SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
+		Pagamento pagt1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);	
+		ped1.setPagamento(pagt1);
+		Pagamento pagt2 = new PatamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf1.parse("20/10/2017"), null);
+		ped2.setPagamento(pagt2);
+		
+		cli1.getPedidos().addAll(Arrays.asList(ped1,ped2));
+		
+		pedidoRepository.save(Arrays.asList(ped1,ped2));
+		pagamentoRepository.save(Arrays.asList(pagt1,pagt2));
 		
 	}
 }
