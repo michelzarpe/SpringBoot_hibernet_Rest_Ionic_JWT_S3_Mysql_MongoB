@@ -15,6 +15,7 @@ import com.michelzarpelon.cursomcmz.domain.Cidade;
 import com.michelzarpelon.cursomcmz.domain.Cliente;
 import com.michelzarpelon.cursomcmz.domain.Endereco;
 import com.michelzarpelon.cursomcmz.domain.Estado;
+import com.michelzarpelon.cursomcmz.domain.ItemPedido;
 import com.michelzarpelon.cursomcmz.domain.Pagamento;
 import com.michelzarpelon.cursomcmz.domain.PagamentoComCartao;
 import com.michelzarpelon.cursomcmz.domain.PatamentoComBoleto;
@@ -27,6 +28,7 @@ import com.michelzarpelon.cursomcmz.repositories.CidadeRepository;
 import com.michelzarpelon.cursomcmz.repositories.ClienteRepository;
 import com.michelzarpelon.cursomcmz.repositories.EnderecoRepository;
 import com.michelzarpelon.cursomcmz.repositories.EstadoRepository;
+import com.michelzarpelon.cursomcmz.repositories.ItemPedidoRepository;
 import com.michelzarpelon.cursomcmz.repositories.PagamentoRepository;
 import com.michelzarpelon.cursomcmz.repositories.PedidoRepository;
 import com.michelzarpelon.cursomcmz.repositories.ProdutoRepository;
@@ -51,6 +53,8 @@ public class CursomcmzApplication implements CommandLineRunner{
 	private PedidoRepository pedidoRepository;
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	
 	public static void main(String[] args) {
@@ -114,6 +118,18 @@ public class CursomcmzApplication implements CommandLineRunner{
 		pedidoRepository.save(Arrays.asList(ped1,ped2));
 		pagamentoRepository.save(Arrays.asList(pagt1,pagt2));
 		
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1,ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		itemPedidoRepository.save(Arrays.asList(ip1,ip2,ip3));
 	}
 }
 
