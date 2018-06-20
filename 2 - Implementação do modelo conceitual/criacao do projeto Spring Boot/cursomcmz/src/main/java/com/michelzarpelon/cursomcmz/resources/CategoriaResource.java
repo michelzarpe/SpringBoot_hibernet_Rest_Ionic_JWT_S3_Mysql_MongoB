@@ -13,6 +13,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.michelzarpelon.cursomcmz.domain.Categoria;
 import com.michelzarpelon.cursomcmz.services.CategoriaService;
 
+/*todos os tratamentos de excessao estao dentro do patocete services.execeptions.ResourceExeptionHandler*/
+
 @RestController
 @RequestMapping(value = "/categorias")
 public class CategoriaResource {
@@ -34,11 +36,17 @@ public class CategoriaResource {
 				.toUri();
 		return ResponseEntity.created(uri).build();
 	}
-	
-	@RequestMapping(method = RequestMethod.PUT, value="/{id}")
-	public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id){
+
+	@RequestMapping(method = RequestMethod.PUT, value = "/{id}")
+	public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id) {
 		obj.setId(id);
 		obj = categoriaService.update(obj);
+		return ResponseEntity.noContent().build();
+	}
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
+		categoriaService.delete(id); 
 		return ResponseEntity.noContent().build();
 	}
 
