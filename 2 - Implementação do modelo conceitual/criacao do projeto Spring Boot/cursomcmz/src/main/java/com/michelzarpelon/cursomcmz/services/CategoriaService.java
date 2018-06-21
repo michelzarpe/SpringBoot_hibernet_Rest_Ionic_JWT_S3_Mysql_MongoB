@@ -1,5 +1,7 @@
 package com.michelzarpelon.cursomcmz.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -41,6 +43,10 @@ public class CategoriaService {
 			throw new DataIntegrityException("Objeto não pode ser deletado: " + id + ", Tipo do objeto: "
 					+ Categoria.class.getName() + ", pois possui produtos");
 		}
+	}
+
+	public List<Categoria> findAll() {
+		return repositorioCategoria.findAll();
 	}
 
 }
