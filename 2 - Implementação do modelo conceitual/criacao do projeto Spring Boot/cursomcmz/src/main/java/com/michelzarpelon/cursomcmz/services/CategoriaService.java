@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import com.michelzarpelon.cursomcmz.domain.Categoria;
+import com.michelzarpelon.cursomcmz.domain.dto.CategoriaDTO;
 import com.michelzarpelon.cursomcmz.repositories.CategoriaRepository;
 import com.michelzarpelon.cursomcmz.services.execeptions.DataIntegrityException;
 import com.michelzarpelon.cursomcmz.services.execeptions.ObjectNotFoundException;
@@ -56,5 +57,11 @@ public class CategoriaService {
 		PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repositorioCategoria.findAll(pageRequest);
 	}
+	
+	/*converter ObrjetoDTO para objeto normal*/
+	public Categoria fromDTO(CategoriaDTO objDTO) {
+		return new Categoria(objDTO.getId(),objDTO.getNome());
+	}
+	
 
 }
