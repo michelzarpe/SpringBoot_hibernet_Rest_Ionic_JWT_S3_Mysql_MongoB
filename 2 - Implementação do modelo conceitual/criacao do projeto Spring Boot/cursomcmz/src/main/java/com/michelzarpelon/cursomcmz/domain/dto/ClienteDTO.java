@@ -8,9 +8,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.michelzarpelon.cursomcmz.domain.Cliente;
 import com.michelzarpelon.cursomcmz.services.validation.ClienteInsert;
+import com.michelzarpelon.cursomcmz.services.validation.ClienteUpdate;
 
 
-
+@ClienteUpdate
 public class ClienteDTO  implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -18,6 +19,7 @@ public class ClienteDTO  implements Serializable {
 	@NotEmpty(message="Favor preencher o campo!")
 	@Length(max=100, min=10, message="Favor Preencher campo com no 5 a 80 ctrs!")
 	private String nome;
+	
 	@NotEmpty(message="Favor preencher o campo!")
 	@Email(message="E-mail inválido")
 	private String email;
