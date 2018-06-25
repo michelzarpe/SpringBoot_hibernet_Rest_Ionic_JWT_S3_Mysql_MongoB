@@ -7,6 +7,9 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.michelzarpelon.cursomcmz.domain.Cliente;
+import com.michelzarpelon.cursomcmz.services.validation.ClienteInsert;
+
+
 
 public class ClienteDTO  implements Serializable {
 	private static final long serialVersionUID = 1L;

@@ -2,23 +2,38 @@ package com.michelzarpelon.cursomcmz.domain.dto;
 
 import java.io.Serializable;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import com.michelzarpelon.cursomcmz.services.validation.ClienteInsert;
+
+@ClienteInsert
 public class NovoClienteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
+
+	@NotEmpty(message = "Favor preencher o campo!")
+	@Length(max = 100, min = 10, message = "Favor Preencher campo com no 5 a 80 ctrs!")
 	private String nome;
+	@NotEmpty(message = "Favor preencher o campo!")
+	@Email(message = "E-mail inválido")
 	private String email;
+	@NotEmpty(message = "Favor preencher o campo!")
 	private String cpfOuCnpj;
 	private Integer tipo;
-	
+	@NotEmpty(message = "Favor preencher o campo!")
 	private String logradouro;
+	@NotEmpty(message = "Favor preencher o campo!")
 	private String numero;
 	private String complemento;
 	private String bairro;
+	@NotEmpty(message = "Favor preencher o campo!")
 	private String cep;
-	
+	@NotEmpty(message = "Favor preencher o campo!")
 	private String telefone1;
 	private String telefone2;
 	private String telefone3;
-	
+
 	private Integer cidadeId;
 
 	public NovoClienteDTO() {
@@ -128,5 +143,5 @@ public class NovoClienteDTO implements Serializable {
 	public void setCidadeId(Integer cidadeId) {
 		this.cidadeId = cidadeId;
 	}
-	
+
 }
