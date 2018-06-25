@@ -6,6 +6,7 @@ import java.io.Serializable;
 /*Classe de erro padrao*/
 public class StandardError implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
 	private Integer status;
 	private String msg;
 	private Long timeStamp;
@@ -40,9 +41,4 @@ public class StandardError implements Serializable {
 	public void setTimeStamp(Long timeStamp) {
 		this.timeStamp = timeStamp;
 	}
-	
-	
-	
-	
-	
 }

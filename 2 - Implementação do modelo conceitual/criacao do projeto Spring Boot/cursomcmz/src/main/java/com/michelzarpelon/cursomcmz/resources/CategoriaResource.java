@@ -27,40 +27,40 @@ import com.michelzarpelon.cursomcmz.services.CategoriaService;
 public class CategoriaResource {
 
 	@Autowired
-	private CategoriaService categoriaService;
+	private CategoriaService objService;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Categoria categoria = categoriaService.find(id);
+		Categoria categoria = objService.find(id);
 		return ResponseEntity.ok().body(categoria);
 
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDTO) {
-		Categoria obj = categoriaService.fromDTO(objDTO);
-		obj = categoriaService.insert(obj);
+		Categoria obj = objService.fromDTO(objDTO);
+		obj = objService.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, value = "/{id}")
 	public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO objDTO, @PathVariable Integer id) {
-		Categoria obj = categoriaService.fromDTO(objDTO);
+		Categoria obj = objService.fromDTO(objDTO);
 		obj.setId(id);
-		obj = categoriaService.update(obj);
+		obj = objService.update(obj);
 		return ResponseEntity.noContent().build();
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
-		categoriaService.delete(id);
+		objService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> findAll() {
-		List<Categoria> list = categoriaService.findAll();
+		List<Categoria> list = objService.findAll();
 		List<CategoriaDTO> listDTO = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 
@@ -71,7 +71,7 @@ public class CategoriaResource {
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
 			@RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
-		Page<Categoria> list = categoriaService.findPage(page, linesPerPage, orderBy, direction);
+		Page<Categoria> list = objService.findPage(page, linesPerPage, orderBy, direction);
 		Page<CategoriaDTO> listDTO = list.map(obj -> new CategoriaDTO(obj));
 		return ResponseEntity.ok().body(listDTO);
 

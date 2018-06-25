@@ -15,11 +15,11 @@ import com.michelzarpelon.cursomcmz.services.PedidoService;
 public class PedidoResource {
 	
 	@Autowired
-	private PedidoService pedidoService;
+	private PedidoService objService;
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Pedido pedido = pedidoService.find(id);
+		Pedido pedido = objService.find(id);
 		return ResponseEntity.ok().body(pedido);
 
 	}

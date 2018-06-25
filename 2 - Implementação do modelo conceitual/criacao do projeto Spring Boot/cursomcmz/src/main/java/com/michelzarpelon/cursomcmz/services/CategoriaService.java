@@ -18,10 +18,10 @@ import com.michelzarpelon.cursomcmz.services.execeptions.ObjectNotFoundException
 public class CategoriaService {
 
 	@Autowired
-	private CategoriaRepository repositorioCategoria;
+	private CategoriaRepository repositorioObj;
 
 	public Categoria find(Integer id) {
-		Categoria categoria = repositorioCategoria.findOne(id);
+		Categoria categoria = repositorioObj.findOne(id);
 		if (categoria == null) {
 			throw new ObjectNotFoundException(
 					"Objeto não encontrado: " + id + ", Tipo do objeto: " + Categoria.class.getName());
@@ -31,18 +31,18 @@ public class CategoriaService {
 
 	public Categoria insert(Categoria obj) {
 		obj.setId(null);
-		return repositorioCategoria.save(obj);
+		return repositorioObj.save(obj);
 	}
 
 	public Categoria update(Categoria obj) {
 		find(obj.getId());
-		return repositorioCategoria.save(obj);
+		return repositorioObj.save(obj);
 	}
 
 	public void delete(Integer id) {
 		find(id);
 		try {
-			repositorioCategoria.delete(id);
+			repositorioObj.delete(id);
 		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Objeto não pode ser deletado: " + id + ", Tipo do objeto: "
 					+ Categoria.class.getName() + ", pois possui produtos");
@@ -50,12 +50,12 @@ public class CategoriaService {
 	}
 
 	public List<Categoria> findAll() {
-		return repositorioCategoria.findAll();
+		return repositorioObj.findAll();
 	}
 
 	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		return repositorioCategoria.findAll(pageRequest);
+		return repositorioObj.findAll(pageRequest);
 	}
 	
 	/*converter ObrjetoDTO para objeto normal*/

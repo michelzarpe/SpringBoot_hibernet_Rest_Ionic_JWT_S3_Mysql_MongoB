@@ -29,19 +29,18 @@ public class Cliente implements Serializable {
 	private String email;
 	private String cpfOuCnpj;
 	private Integer tipo;
-	
-	@JsonIgnore
-	@OneToMany(mappedBy="cliente")
-	private List<Pedido> pedidos = new ArrayList<>();
-	
 
-	@OneToMany(mappedBy="cliente") /*mappedBy se refere ao atributo na outra classe, cliente*/
+	@JsonIgnore
+	@OneToMany(mappedBy = "cliente")
+	private List<Pedido> pedidos = new ArrayList<>();
+
+	@OneToMany(mappedBy = "cliente") /* mappedBy se refere ao atributo na outra classe, cliente */
 	private List<Endereco> enderecos = new ArrayList<>();
-	
+
 	@ElementCollection
-	@CollectionTable(name="TELEFONE")
+	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefone = new HashSet<>();
-		
+
 	public Cliente() {
 		super();
 	}
@@ -52,7 +51,7 @@ public class Cliente implements Serializable {
 		this.nome = nome;
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
-		this.tipo = tipo.getCod();
+		this.tipo = (tipo == null) ? null : tipo.getCod(); /* Fazer o ternario para parar o erro com a conversado do DTO para cliente */
 	}
 
 	public Integer getId() {
@@ -111,7 +110,6 @@ public class Cliente implements Serializable {
 		this.telefone = telefone;
 	}
 
-
 	public List<Pedido> getPedidos() {
 		return pedidos;
 	}
@@ -145,6 +143,4 @@ public class Cliente implements Serializable {
 		return true;
 	}
 
-	
-	
 }
