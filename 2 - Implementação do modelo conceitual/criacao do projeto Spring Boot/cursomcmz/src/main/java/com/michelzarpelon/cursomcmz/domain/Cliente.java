@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -34,7 +35,7 @@ public class Cliente implements Serializable {
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 
-	@OneToMany(mappedBy = "cliente") /* mappedBy se refere ao atributo na outra classe, cliente */
+	@OneToMany(mappedBy = "cliente", cascade= CascadeType.ALL) /* mappedBy se refere ao atributo na outra classe, cliente, o CascadeType.all apaga os enderecos vinculados ao cliente */
 	private List<Endereco> enderecos = new ArrayList<>();
 
 	@ElementCollection
