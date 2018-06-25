@@ -10,11 +10,11 @@ import com.michelzarpelon.cursomcmz.services.execeptions.ObjectNotFoundException
 public class PedidoService {
 
 	@Autowired
-	private PedidoRepository pedidoRepository;
+	private PedidoRepository repositorioObj;
 	
 	
 	public Pedido find(Integer id) {
-		Pedido pedido = pedidoRepository.findOne(id);
+		Pedido pedido = repositorioObj.findOne(id);
 		if(pedido==null) {
 			throw new ObjectNotFoundException("Objeto não encontrado: "+id+", Tipo do objeto: "+Pedido.class.getName());
 		}

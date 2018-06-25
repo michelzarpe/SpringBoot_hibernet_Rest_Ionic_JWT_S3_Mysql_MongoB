@@ -35,8 +35,14 @@ public class CategoriaService {
 	}
 
 	public Categoria update(Categoria obj) {
-		find(obj.getId());
-		return repositorioObj.save(obj);
+		Categoria objBanco = find(obj.getId());
+		updateData(objBanco, obj);
+		return repositorioObj.save(objBanco);
+	}
+
+	private void updateData(Categoria objBanco, Categoria obj) {
+		objBanco.setNome(obj.getNome());
+
 	}
 
 	public void delete(Integer id) {
@@ -57,11 +63,10 @@ public class CategoriaService {
 		PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repositorioObj.findAll(pageRequest);
 	}
-	
-	/*converter ObrjetoDTO para objeto normal*/
+
+	/* converter ObrjetoDTO para objeto normal */
 	public Categoria fromDTO(CategoriaDTO objDTO) {
-		return new Categoria(objDTO.getId(),objDTO.getNome());
+		return new Categoria(objDTO.getId(), objDTO.getNome());
 	}
-	
 
 }

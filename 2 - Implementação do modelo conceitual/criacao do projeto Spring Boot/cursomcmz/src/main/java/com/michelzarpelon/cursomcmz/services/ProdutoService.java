@@ -10,10 +10,10 @@ import com.michelzarpelon.cursomcmz.services.execeptions.ObjectNotFoundException
 public class ProdutoService {
 
 	@Autowired
-	private ProdutoRepository produtoRepository;
+	private ProdutoRepository repositorioObj;
 	
 	private Produto find(Integer id) {
-		Produto produto = produtoRepository.findOne(id);
+		Produto produto = repositorioObj.findOne(id);
 		if(produto==null) {
 			throw new ObjectNotFoundException("Objeto não encontrado: "+id+", Tipo do objeto: "+Produto.class.getName());
 		}
