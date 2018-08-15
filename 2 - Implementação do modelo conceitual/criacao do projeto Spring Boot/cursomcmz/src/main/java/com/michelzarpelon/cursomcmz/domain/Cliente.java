@@ -39,7 +39,8 @@ public class Cliente implements Serializable {
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 
-	@OneToMany(mappedBy = "cliente", cascade= CascadeType.ALL) /* mappedBy se refere ao atributo na outra classe, cliente, o CascadeType.all apaga os enderecos vinculados ao cliente */
+	/*mappedBy se refere ao atributo na outra classe, cliente / CascadeType.all apaga os Endereços vinculados ao cliente */
+	@OneToMany(mappedBy = "cliente", cascade= CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
 
 	@ElementCollection

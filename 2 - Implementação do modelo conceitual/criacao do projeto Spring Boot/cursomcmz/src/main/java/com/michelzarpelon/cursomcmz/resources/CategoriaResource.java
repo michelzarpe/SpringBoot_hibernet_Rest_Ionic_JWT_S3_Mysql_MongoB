@@ -3,9 +3,7 @@ package com.michelzarpelon.cursomcmz.resources;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +18,11 @@ import com.michelzarpelon.cursomcmz.domain.Categoria;
 import com.michelzarpelon.cursomcmz.domain.dto.CategoriaDTO;
 import com.michelzarpelon.cursomcmz.services.CategoriaService;
 
-/*todos os tratamentos de excessao estao dentro do patocete services.execeptions.ResourceExeptionHandler*/
+/*todos os tratamentos de excessao estao dentro do patote services.execeptions.ResourceExeptionHandler*/
+
+//MethodArgumentTypeMismatchException
+
+//@Valid @RequestBody valida e converte para o objeto em sequencia
 
 @RestController
 @RequestMapping(value = "/categorias")
@@ -33,7 +35,6 @@ public class CategoriaResource {
 	public ResponseEntity<?> find(@PathVariable Integer id) {
 		Categoria categoria = objService.find(id);
 		return ResponseEntity.ok().body(categoria);
-
 	}
 
 	@RequestMapping(method = RequestMethod.POST)

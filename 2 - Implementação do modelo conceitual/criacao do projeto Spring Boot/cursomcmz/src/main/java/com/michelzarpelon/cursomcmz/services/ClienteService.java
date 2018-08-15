@@ -37,8 +37,7 @@ public class ClienteService {
 	public Cliente find(Integer id) {
 		Cliente cliente = repositorioObj.findOne(id);
 		if (cliente == null) {
-			throw new ObjectNotFoundException(
-					"Objeto não encontrado: " + id + ", Tipo do objeto: " + Cliente.class.getName());
+			throw new ObjectNotFoundException("Objeto não encontrado: " + id + ", Tipo do objeto: " + Cliente.class.getName());
 		}
 		return cliente;
 	}
@@ -55,8 +54,7 @@ public class ClienteService {
 		try {
 			repositorioObj.delete(id);
 		} catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Objeto não pode ser deletado: " + id + ", Tipo do objeto: "
-					+ Cliente.class.getName() + ", pois possui Entidades Relacionadas");
+			throw new DataIntegrityException("Objeto não pode ser deletado: " + id + ", Tipo do objeto: "+ Cliente.class.getName() + ", pois possui Entidades Relacionadas");
 		}
 	}
 
@@ -69,28 +67,7 @@ public class ClienteService {
 		return repositorioObj.findAll(pageRequest);
 	}
 
-	/* converter ObrjetoDTO para objeto normal */
-	public Cliente fromDTO(ClienteDTO objDTO) {
-		return new Cliente(objDTO.getId(), objDTO.getNome(), objDTO.getEmail(), null, null);
-	}
-
-	public Cliente fromDTO(NovoClienteDTO objDTO) {
-		Cliente objCli = new Cliente(null, objDTO.getNome(), objDTO.getEmail(), objDTO.getCpfOuCnpj(),
-				TipoCliente.toEnum(objDTO.getTipo()));
-		Cidade objCid = repositorioObjCidade.findOne(objDTO.getCidadeId());
-		Endereco objEnd = new Endereco(null, objDTO.getLogradouro(), objDTO.getNumero(), objDTO.getComplemento(),
-				objDTO.getBairro(), objDTO.getCep(), objCli, objCid);
-		objCli.getEnderecos().add(objEnd);
-		objCli.getTelefone().add(objDTO.getTelefone1());
-		if (objDTO.getTelefone2() != null) {
-			objCli.getTelefone().add(objDTO.getTelefone2());
-		}
-		if (objDTO.getTelefone3() != null) {
-			objCli.getTelefone().add(objDTO.getTelefone3());
-		}
-		return objCli;
-	}
-
+	/*garante que vai salvar cliente e endereco na mesma transacao no banco de dados*/
 	@Transactional
 	public Cliente insert(Cliente obj) {
 		obj.setId(null);
@@ -99,5 +76,31 @@ public class ClienteService {
 		return obj;
 
 	}
+	
+	 
+	/*---------------------------Sobre Carga dos DTOs---------------------------------------*/
+	/* converter ObrjetoDTO para objeto normal */
+	public Cliente fromDTO(ClienteDTO objDTO) {
+		return new Cliente(objDTO.getId(), objDTO.getNome(), objDTO.getEmail(), null, null);
+	}
+    /* Usado o DTO para transferir objetos entre front e back and*/
+	public Cliente fromDTO(NovoClienteDTO objDTO) {
+		Cliente objCli = new Cliente(null, objDTO.getNome(), objDTO.getEmail(), objDTO.getCpfOuCnpj(),TipoCliente.toEnum(objDTO.getTipo()));
+		Cidade objCid = repositorioObjCidade.findOne(objDTO.getCidadeId());
+		Endereco objEnd = new Endereco(null, objDTO.getLogradouro(), objDTO.getNumero(), objDTO.getComplemento(),objDTO.getBairro(), objDTO.getCep(), objCli, objCid);
+		objCli.getEnderecos().add(objEnd);
+				
+		if (objDTO.getTelefone1() != null) 
+			objCli.getTelefone().add(objDTO.getTelefone1());
+		
+		if (objDTO.getTelefone2() != null) 
+			objCli.getTelefone().add(objDTO.getTelefone2());
+		
+		if (objDTO.getTelefone3() != null) 
+			objCli.getTelefone().add(objDTO.getTelefone3());
+		
+		return objCli;
+	}
 
+	
 }

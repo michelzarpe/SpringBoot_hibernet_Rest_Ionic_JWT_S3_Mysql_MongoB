@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.michelzarpelon.cursomcmz.services.validation.ClienteInsert;
 
-@ClienteInsert
+@ClienteInsert  /*classe de validacao criada*/
 public class NovoClienteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -14,6 +14,7 @@ import com.michelzarpelon.cursomcmz.repositories.ClienteRepository;
 import com.michelzarpelon.cursomcmz.resources.exceptions.FieldMessage;
 import com.michelzarpelon.cursomcmz.services.validation.util.Br;
 
+/*Adiciona as regras de negocio para inserção de um cliente na base de dados*/
 public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert, NovoClienteDTO> {
 
 	@Autowired
@@ -28,6 +29,7 @@ public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert
 		List<FieldMessage> list = new ArrayList<>();
 
 		Cliente objAux = repositorioObj.findByEmail(objDto.getEmail());
+		
 		if (objAux != null) {
 			list.add(new FieldMessage("Email", "E-mail já existente"));
 		}
@@ -42,10 +44,10 @@ public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert
 
 		}
 
+		//transporta os erros personalizados para o framework.. seria como eu tivesse criando minhas exceções
 		for (FieldMessage e : list) {
 			context.disableDefaultConstraintViolation();
-			context.buildConstraintViolationWithTemplate(e.getMessege()).addPropertyNode(e.getFieldName())
-					.addConstraintViolation();
+			context.buildConstraintViolationWithTemplate(e.getMessege()).addPropertyNode(e.getFieldName()).addConstraintViolation();
 		}
 		return list.isEmpty();
 	}

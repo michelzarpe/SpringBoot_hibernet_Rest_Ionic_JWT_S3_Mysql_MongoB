@@ -34,6 +34,7 @@ public class CategoriaService {
 		return repositorioObj.save(obj);
 	}
 
+	/*buscar no banco sempre porque ele fica monitorado pelo JPA*/
 	public Categoria update(Categoria obj) {
 		Categoria objBanco = find(obj.getId());
 		updateData(objBanco, obj);
@@ -50,8 +51,7 @@ public class CategoriaService {
 		try {
 			repositorioObj.delete(id);
 		} catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Objeto não pode ser deletado: " + id + ", Tipo do objeto: "
-					+ Categoria.class.getName() + ", pois possui produtos");
+			throw new DataIntegrityException("Objeto não pode ser deletado: " + id + ", Tipo do objeto: "+ Categoria.class.getName() + ", pois possui produtos");
 		}
 	}
 

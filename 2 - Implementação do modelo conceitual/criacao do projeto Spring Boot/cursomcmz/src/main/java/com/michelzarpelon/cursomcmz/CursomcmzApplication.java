@@ -139,6 +139,7 @@ public class CursomcmzApplication implements CommandLineRunner{
 		SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
 		Pagamento pagt1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);	
 		ped1.setPagamento(pagt1);
+		
 		Pagamento pagt2 = new PatamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf1.parse("20/10/2017"), null);
 		ped2.setPagamento(pagt2);
 		

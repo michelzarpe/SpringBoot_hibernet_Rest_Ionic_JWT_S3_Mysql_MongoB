@@ -11,6 +11,7 @@ import javax.validation.Payload;
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 
+/*Classe padrao para validacao na hora de inserção de um cliente*/
 public @interface ClienteInsert {
 	String message() default "Erro de validação";
 
