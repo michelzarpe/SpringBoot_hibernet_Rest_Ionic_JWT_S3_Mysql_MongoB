@@ -1,5 +1,0 @@
-Hibernate
-Rest
-H2
-Spring
-Spring Boot
