@@ -1,0 +1,10 @@
+
+
+
+CLEARDB_DATABASE_URL: mysql://bc3d0da3b0624d:2045270f@us-cdbr-iron-east-01.cleardb.net/heroku_e21f7e7b097c563?reconnect=true
+
+subir banco:
+mysql --host=us-cdbr-iron-east-01.cleardb.net --user=bc3d0da3b0624d --password=2045270f --reconnect heroku_e21f7e7b097c563 < arquivo.sql
+
+
+subir aplicação:
